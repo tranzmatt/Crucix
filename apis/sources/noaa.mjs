@@ -80,8 +80,8 @@ export async function briefing() {
         areas: f.properties?.areaDesc,
         onset: f.properties?.onset,
         expires: f.properties?.expires,
-        lat: lat ? +lat.toFixed(3) : null,
-        lon: lon ? +lon.toFixed(3) : null,
+        lat: lat != null ? +lat.toFixed(3) : null,
+        lon: lon != null ? +lon.toFixed(3) : null,
       };
     }),
   };

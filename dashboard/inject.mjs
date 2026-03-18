@@ -369,7 +369,7 @@ export async function synthesize(data) {
   }));
   const noaa = {
     totalAlerts: data.sources.NOAA?.totalSevereAlerts || 0,
-    alerts: (data.sources.NOAA?.topAlerts || []).filter(a => a.lat && a.lon).slice(0, 10).map(a => ({
+    alerts: (data.sources.NOAA?.topAlerts || []).filter(a => a.lat != null && a.lon != null).slice(0, 10).map(a => ({
       event: a.event, severity: a.severity, headline: a.headline?.substring(0, 120),
       lat: a.lat, lon: a.lon
     }))
@@ -380,7 +380,7 @@ export async function synthesize(data) {
   const epaStations = [];
   const seenEpa = new Set();
   for (const r of (epaData.readings || [])) {
-    if (!r.lat || !r.lon) continue;
+    if (r.lat == null || r.lon == null) continue;
     const key = `${r.lat},${r.lon}`;
     if (seenEpa.has(key)) continue;
     seenEpa.add(key);
